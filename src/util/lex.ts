@@ -15,7 +15,11 @@ export function lex(input: string): Lexeme[] {
       lexemes.push({ type: "op", value: op[0] })
       continue
     }
-    throw new Error("Unlexable")
+    if (input[0] === " ") {
+      input = input.slice(1)
+      continue
+    }
+    throw new Error(`Cannot lex ${input}.`)
   }
   lexemes.push({ type: "eof" })
   return lexemes

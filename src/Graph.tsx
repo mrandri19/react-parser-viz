@@ -1,3 +1,5 @@
+// TODO: What if I used d3?
+// TODO: use shouldComponentUpdate and intelligent tree diffing to have the graph only redraw the correct nodes
 import * as cytoscape from "cytoscape"
 import * as React from "react"
 
@@ -52,6 +54,7 @@ class Cytoscape extends React.Component<IProps> {
     })
     this.cy = cy
     cy.json({ elements: this.props.elements })
+    cy.layout({ name: "dagre" }).run()
   }
 
   public shouldComponentUpdate() {
@@ -60,6 +63,7 @@ class Cytoscape extends React.Component<IProps> {
 
   public componentWillReceiveProps(nextProps: IProps) {
     this.cy.json(nextProps)
+    this.rerunGraphLayout()
   }
 
   public componentWillUnmount() {
@@ -72,6 +76,10 @@ class Cytoscape extends React.Component<IProps> {
 
   public render() {
     return <div style={cyStyle} ref={this.ref} />
+  }
+
+  private rerunGraphLayout() {
+    this.cy.layout({ name: "dagre" }).run()
   }
 }
 

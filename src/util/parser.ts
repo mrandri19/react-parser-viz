@@ -1,6 +1,6 @@
 export function parser(
   lexemes: Lexeme[],
-  success: (traces: Trace[], worker: Worker) => void,
+  success: (traces: Trace[]) => void,
   error: (err: Error) => void
 ) {
   const worker = new Worker("worker.js")
@@ -9,7 +9,8 @@ export function parser(
   worker.onmessage = msg => {
     switch (msg.data.kind) {
       case "end":
-        return success(traces, worker)
+        worker.terminate()
+        return success(traces)
       case "error":
         return error(new Error(msg.data.error))
       case "trace":

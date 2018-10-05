@@ -21,7 +21,9 @@ self.onmessage = msg => {
   }
 }
 
-function start(lexemes: Lexeme[]) {
+// tslint:disable-next-line:variable-name
+function start(lexemes_: Lexeme[]) {
+  let lexemes = lexemes_
   // tslint:disable-next-line:variable-name
   let __id = 0
   function getAstNodeId() {
@@ -59,6 +61,7 @@ function start(lexemes: Lexeme[]) {
         rhs: e
       }
     } else {
+      setNodeLabel(nodeid, `expr\n∅`)
       return m
     }
   }
@@ -89,6 +92,7 @@ function start(lexemes: Lexeme[]) {
         rhs: m
       }
     } else {
+      setNodeLabel(nodeid, `mult\n∅`)
       return d
     }
   }
@@ -105,14 +109,16 @@ function start(lexemes: Lexeme[]) {
         value: d.value
       }
     } else {
-      throw new Error("expected digit")
+      throw new Error(`expected digit, got ${JSON.stringify(peek())} instead.`)
     }
   }
 
   const rootId = getAstNodeId()
 
   drawNode(rootId, `expr`)
-  end(expr(rootId))
+  expr(rootId)
+  consume({ type: "eof" })
+  end()
 
   // ************************************
 
@@ -150,7 +156,7 @@ function start(lexemes: Lexeme[]) {
     if (lexemes.length <= 0) {
       throw new Error("consuming an empty arr")
     }
-    if (lexemes[0] !== lex) {
+    if (JSON.stringify(lexemes[0]) !== JSON.stringify(lex)) {
       throw new Error(
         `Tried to consume ${JSON.stringify(lex)}, found ${JSON.stringify(lexemes[0])}`
       )
@@ -177,7 +183,7 @@ function start(lexemes: Lexeme[]) {
     trace({ type: "setNodeLabel", id, label })
   }
 
-  function end(output: any) {
+  function end() {
     const c = self as any
     c.postMessage({ kind: "end" })
   }

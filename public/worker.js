@@ -30,7 +30,9 @@ self.onmessage = function (msg) {
             throw new Error("Unreachable switch arm");
     }
 };
-function start(lexemes) {
+// tslint:disable-next-line:variable-name
+function start(lexemes_) {
+    var lexemes = lexemes_;
     // tslint:disable-next-line:variable-name
     var __id = 0;
     function getAstNodeId() {
@@ -63,6 +65,7 @@ function start(lexemes) {
             };
         }
         else {
+            setNodeLabel(nodeid, "expr\n\u2205");
             return m;
         }
     }
@@ -87,6 +90,7 @@ function start(lexemes) {
             };
         }
         else {
+            setNodeLabel(nodeid, "mult\n\u2205");
             return d;
         }
     }
@@ -101,12 +105,14 @@ function start(lexemes) {
             };
         }
         else {
-            throw new Error("expected digit");
+            throw new Error("expected digit, got " + JSON.stringify(peek()) + " instead.");
         }
     }
     var rootId = getAstNodeId();
     drawNode(rootId, "expr");
-    end(expr(rootId));
+    expr(rootId);
+    consume({ type: "eof" });
+    end();
     // ************************************
     function trace(actionData) {
         var errors = ErrorStackParser.parse(new Error());
@@ -133,7 +139,7 @@ function start(lexemes) {
         if (lexemes.length <= 0) {
             throw new Error("consuming an empty arr");
         }
-        if (lexemes[0] !== lex) {
+        if (JSON.stringify(lexemes[0]) !== JSON.stringify(lex)) {
             throw new Error("Tried to consume " + JSON.stringify(lex) + ", found " + JSON.stringify(lexemes[0]));
         }
         lexemes = lexemes.slice(1);
@@ -155,7 +161,7 @@ function start(lexemes) {
     function setNodeLabel(id, label) {
         trace({ type: "setNodeLabel", id: id, label: label });
     }
-    function end(output) {
+    function end() {
         var c = self;
         c.postMessage({ kind: "end" });
     }
