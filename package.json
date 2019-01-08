@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "bulma": "^0.7.1",
-    "cytoscape": "^3.2.16",
-    "cytoscape-dagre": "^2.2.1",
-    "react": "^16.5.1",
-    "react-dom": "^16.5.1",
+    "bulma": "^0.7.2",
+    "cytoscape": "^3.3.1",
+    "cytoscape-dagre": "^2.2.2",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
     "react-scripts-ts": "2.17.0"
   },
   "scripts": {
@@ -17,11 +17,11 @@
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
-    "@types/cytoscape": "^3.2.7",
-    "@types/jest": "^23.3.2",
-    "@types/node": "^10.9.4",
-    "@types/react": "^16.4.14",
-    "@types/react-dom": "^16.0.7",
-    "typescript": "^3.0.3"
+    "@types/cytoscape": "^3.2.9",
+    "@types/jest": "^23.3.12",
+    "@types/node": "^10.12.18",
+    "@types/react": "^16.7.18",
+    "@types/react-dom": "^16.0.11",
+    "typescript": "^3.2.2"
   }
 }

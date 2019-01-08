@@ -1,7 +1,7 @@
 // TODO: finish writing
 import * as React from "react"
 
-export default function article(lexemes: JSX.Element | null, parser: JSX.Element | null, highlightedLexemes: JSX.Element | null) {
+export default function article(lexemes: JSX.Element | null, parser: JSX.Element | null, highlightedLexemes: JSX.Element | null, sourceCode: JSX.Element | null) {
   return (
     <div className="wrapper">
       <article className="post h-entry">
@@ -169,6 +169,7 @@ digit ::= /\\d+/`}
           <h4>Explain how to build one with terminal and nonterminals</h4>
           {parser}
           {highlightedLexemes}
+          {sourceCode}
         </section>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus

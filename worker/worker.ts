@@ -36,6 +36,7 @@ function start(lexemes_: Lexeme[]) {
   }
   const traces: Trace[] = []
 
+// ************************************
   function expr(nodeid: number): AST {
     const id = getAstNodeId()
     drawNode(id, `mult`)

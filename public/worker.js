@@ -44,6 +44,7 @@ function start(lexemes_) {
         return "e" + __edge_id++;
     }
     var traces = [];
+    // ************************************
     function expr(nodeid) {
         var id = getAstNodeId();
         drawNode(id, "mult");

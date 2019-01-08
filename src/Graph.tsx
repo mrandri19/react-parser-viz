@@ -25,6 +25,8 @@ class Cytoscape extends React.Component<IProps> {
     cytoscape.use(dagre)
     const cy = cytoscape({
       container: this.ref.current,
+      userPanningEnabled: false,
+      userZoomingEnabled: false,
       layout: { name: "dagre" },
       style: [
         {
